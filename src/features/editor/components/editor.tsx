@@ -11,7 +11,6 @@ export const Editor = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    
     const canvas = new fabric.Canvas(
       canvasRef.current,
       {
