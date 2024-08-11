@@ -49,20 +49,20 @@ export const useEditor = () => {
       setCanvas(initialCanvas)
       setContainer(initialContainer)
 
-      // const testWorkspace = new fabric.Rect({
-      //   width: 200,
-      //   height: 200,
-      //   name: "clip",
-      //   fill: "black",
-      //   selectable: true,
-      //   hasControls: true,
-      //   shadow: new fabric.Shadow({
-      //     color: "rgba(0, 0, 0, 0.8)",
-      //     blur: 5
-      //   })
-      // })
+      const testWorkspace = new fabric.Rect({
+        width: 200,
+        height: 200,
+        name: "clip",
+        fill: "black",
+        selectable: true,
+        hasControls: true,
+        shadow: new fabric.Shadow({
+          color: "rgba(0, 0, 0, 0.8)",
+          blur: 5
+        })
+      })
 
-      // initialCanvas.add(testWorkspace)
+      initialCanvas.add(testWorkspace)
     },
     []
   );
