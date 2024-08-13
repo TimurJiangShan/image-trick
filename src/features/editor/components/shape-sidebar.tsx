@@ -24,38 +24,37 @@ export const ShapeSidebar = ({
   };
 
   return (
-    <aside
-      className={cn(
-        "bg-white border-r z-[40] h-full flex flex-col overflow-hidden",
-        "transition-[width] duration-300 ease-in-out",
-        activeTool === "shapes" ? "w-[360px]" : "w-0"
-      )}
-    >
-      <div className={cn(
-        "w-[360px] transition-transform duration-300 ease-in-out",
-        activeTool === "shapes" ? "translate-x-0" : "-translate-x-full"
-      )}>
-        <ToolSidebarHeader
-          title="Shapes"
-          description="Add shapes to your canvas"
-        />
-        <ScrollArea>
-          <div className="grid grid-cols-3 gap-4 p-4">
-            <ShapeTool onClick={() => {}} icon={FaCircle} />
-            <ShapeTool onClick={() => {}} icon={FaSquare} />
-            <ShapeTool onClick={() => {}} icon={FaSquareFull} />
-            <ShapeTool onClick={() => {}} icon={IoTriangle} />
-            <ShapeTool
-              onClick={() => {}}
-              icon={IoTriangle}
-              iconClassName="rotate-180"
-            />
-            <ShapeTool onClick={() => {}} icon={FaDiamond} />
-          </div>
-        </ScrollArea>
-        {/* TODO: Fix the close button as */}
-        <ToolSidebarClose onClick={onClose} />
-      </div>
-    </aside>
+    <div>
+      <aside
+        className={cn(
+          "bg-white border-r z-[40] h-full flex flex-col overflow-hidden",
+          "transition-all duration-300 ease-in-out",
+          activeTool === "shapes" ? "w-[360px]" : "w-0"
+        )}
+      >
+        <div className="w-[360px]">
+          <ToolSidebarHeader
+            title="Shapes"
+            description="Add shapes to your canvas"
+          />
+          <ScrollArea>
+            <div className="grid grid-cols-3 gap-4 p-4">
+              <ShapeTool onClick={() => {}} icon={FaCircle} />
+              <ShapeTool onClick={() => {}} icon={FaSquare} />
+              <ShapeTool onClick={() => {}} icon={FaSquareFull} />
+              <ShapeTool onClick={() => {}} icon={IoTriangle} />
+              <ShapeTool
+                onClick={() => {}}
+                icon={IoTriangle}
+                iconClassName="rotate-180"
+              />
+              <ShapeTool onClick={() => {}} icon={FaDiamond} />
+            </div>
+          </ScrollArea>
+        </div>
+      </aside>
+      <ToolSidebarClose activeTool={activeTool} onClick={onClose} />
+
+    </div>
   );
 };
