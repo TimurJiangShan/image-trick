@@ -1,10 +1,29 @@
 import { fabric } from "fabric";
-import { useCallback, useState } from "react";
-import {useAutoResize} from "./use-auto-resize";
+import { useCallback, useMemo, useState } from "react";
+import { useAutoResize } from "@/features/editor/hooks/use-auto-resize";
+import { CIRCLE_OPTIONS } from "@/features/editor/types";
 
 export const useEditor = () => {
   const [canvas, setCanvas] = useState<fabric.Canvas | null>(null)
   const [container, setContainer] = useState<HTMLDivElement | null>(null)
+
+  const getCurrentWorkspace = () => {
+    return canvas?.getObjects().find((object) => object.name === 'clip')
+  }
+
+  const center = (object: fabric.Object) => {
+    const workspace = getCurrentWorkspace();
+    const center = workspace?.getCenterPoint();
+
+    // @ts-ignore
+    canvas._centerObject(object, center)
+  }
+
+  const addToCanvas = (object: fabric.Object) => {
+    center(object)
+    canvas?.add(object)
+    canvas?.setActiveObject(object)
+  }
 
   useAutoResize({ canvas, container})
 
@@ -49,23 +68,39 @@ export const useEditor = () => {
       setCanvas(initialCanvas)
       setContainer(initialContainer)
 
-      const testWorkspace = new fabric.Rect({
-        width: 200,
-        height: 200,
-        name: "clip",
-        fill: "black",
-        selectable: true,
-        hasControls: true,
-        shadow: new fabric.Shadow({
-          color: "rgba(0, 0, 0, 0.8)",
-          blur: 5
-        })
-      })
-
-      initialCanvas.add(testWorkspace)
     },
     []
   );
 
-  return { init };
+  const buildEditor = () => {
+    return {
+      addCircle: () => {
+        const object = new fabric.Circle({
+          ...CIRCLE_OPTIONS
+        })
+
+        addToCanvas(object)
+      },
+      addSquare: () => {
+        console.log("Adding a square")
+      },
+      addSquareFull: () => {
+        console.log("Adding a squareFull")
+      },
+      addTriangle: () => {
+        console.log("Adding a triangle")
+      },
+      addReverseTriangle: () => {
+        console.log("Adding a reverseTriangle")
+      }
+    }
+  }
+
+  const editor = useMemo(() => {
+    if (canvas) {
+      return buildEditor()
+    }
+  }, [canvas])
+
+  return { init, editor };
 };
