@@ -1,7 +1,7 @@
 import { fabric } from "fabric";
 import { useCallback, useMemo, useState } from "react";
 import { useAutoResize } from "@/features/editor/hooks/use-auto-resize";
-import { CIRCLE_OPTIONS } from "@/features/editor/types";
+import { CIRCLE_OPTIONS, DIAMOND_OPTIONS, RECTANGLE_OPTIONS, TRIANGLE_OPTIONS } from "@/features/editor/types";
 
 export const useEditor = () => {
   const [canvas, setCanvas] = useState<fabric.Canvas | null>(null)
@@ -82,16 +82,56 @@ export const useEditor = () => {
         addToCanvas(object)
       },
       addSquare: () => {
-        console.log("Adding a square")
+        const object = new fabric.Rect({
+          ...RECTANGLE_OPTIONS,
+          rx: 50,
+          ry: 50  
+        })
+
+        addToCanvas(object)
       },
       addSquareFull: () => {
-        console.log("Adding a squareFull")
+        const object = new fabric.Rect({
+          ...RECTANGLE_OPTIONS,
+        })
+
+        addToCanvas(object)
       },
       addTriangle: () => {
-        console.log("Adding a triangle")
+        const object = new fabric.Triangle({
+          ...TRIANGLE_OPTIONS
+        })
+
+        addToCanvas(object)
       },
       addReverseTriangle: () => {
-        console.log("Adding a reverseTriangle")
+        const HEIGHT = 400
+        const WIDTH = 400
+
+        const object = new fabric.Polygon([
+          { x: 0, y: 0 },
+          { x: WIDTH , y: 0 },
+          { x: WIDTH / 2, y: HEIGHT }
+        ], {
+          ...TRIANGLE_OPTIONS
+        })
+
+        addToCanvas(object)
+      },
+      addDiamond: () => {
+        const HEIGHT = DIAMOND_OPTIONS.height
+        const WIDTH = DIAMOND_OPTIONS.width
+
+        const object = new fabric.Polygon([
+          { x: WIDTH / 2, y: 0 },
+          { x: WIDTH, y: HEIGHT / 2 },
+          { x: WIDTH / 2, y: HEIGHT },
+          { x: 0, y: HEIGHT / 2 }
+        ], {
+          ...DIAMOND_OPTIONS
+        })
+
+        addToCanvas(object)
       }
     }
   }
