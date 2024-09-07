@@ -26,37 +26,34 @@ export const ShapeSidebar = ({
   };
 
   return (
-    <div>
-      <aside
-        className={cn(
-          "bg-white border-r z-[40] h-full flex flex-col overflow-hidden",
-          "transition-all duration-300 ease-in-out",
-          activeTool === "shapes" ? "w-[360px]" : "w-0"
-        )}
-      >
-        <div className="w-[360px]">
-          <ToolSidebarHeader
-            title="Shapes"
-            description="Add shapes to your canvas"
+    <aside
+      className={cn(
+        "bg-white relative border-r z-[40] w-[360px] h-full flex flex-col",
+        activeTool === "shapes" ? "visible" : "hidden"
+      )}
+    >
+      <ToolSidebarHeader
+        title="Shapes"
+        description="Add shapes to your canvas"
+      />
+      <ScrollArea>
+        <div className="grid grid-cols-3 gap-4 p-4">
+          <ShapeTool onClick={() => editor?.addCircle()} icon={FaCircle} />
+          <ShapeTool onClick={() => editor?.addSquare()} icon={FaSquare} />
+          <ShapeTool
+            onClick={() => editor?.addSquareFull()}
+            icon={FaSquareFull}
           />
-          <ScrollArea>
-            <div className="grid grid-cols-3 gap-4 p-4">
-              <ShapeTool onClick={() => editor?.addCircle()} icon={FaCircle} />
-              <ShapeTool onClick={() => editor?.addSquare()} icon={FaSquare} />
-              <ShapeTool onClick={() => editor?.addSquareFull()} icon={FaSquareFull} />
-              <ShapeTool onClick={() => editor?.addTriangle()} icon={IoTriangle} />
-              <ShapeTool
-                onClick={() => editor?.addReverseTriangle()}
-                icon={IoTriangle}
-                iconClassName="rotate-180"
-              />
-              <ShapeTool onClick={() => {}} icon={FaDiamond} />
-            </div>
-          </ScrollArea>
+          <ShapeTool onClick={() => editor?.addTriangle()} icon={IoTriangle} />
+          <ShapeTool
+            onClick={() => editor?.addReverseTriangle()}
+            icon={IoTriangle}
+            iconClassName="rotate-180"
+          />
+          <ShapeTool onClick={() => editor?.addDiamond()} icon={FaDiamond} />
         </div>
-      </aside>
+      </ScrollArea>
       <ToolSidebarClose activeTool={activeTool} onClick={onClose} />
-
-    </div>
+    </aside>
   );
 };
